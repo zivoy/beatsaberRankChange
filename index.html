@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beat Saber Displayer</title>
+    <link rel="stylesheet" href="bulma/css/bulma.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        html {
+            overflow-y: auto;
+        }
+    </style>
+
+    <meta property="og:site_name" content="Ziv's site of things">
+    <meta property="og:description"
+          content="A page for OBS to display your current rank and PP and display any changes that happend since the it was opened"/>
+    <meta property="og:title" content="Beat Saber Displayer">
+    <meta property="og:url" content="https://ziv.shalit.name/scoresaberStatus"/>
+    <meta name="theme-color" content="#5b5e6a">
+    <!--    <meta property="og:image" content="https://ziv.shalit.name/scoresaberStatus/example.png"/>-->
+</head>
+<body>
+<div class="container">
+    <section id="badUid" class="is-hidden hero is-warning">
+
+        <div class="hero-body">
+            <p id="uidError" class="is-hidden">error! <code id="uid">123123</code> does not seem to be a valid id.</p>
+            <p id="noUid" class="is-hidden">error! no uid was given :/</p>
+            <p>try using the <a href="#UrlGenerator" class="has-text-link">url generator</a> and make sure that you got
+                a correct scoresaber id</p>
+        </div>
+    </section>
+</div>
+
+<section class="section">
+    <div class="container">
+        <p class="title">Beat Saber score displayer</p>
+        <p class="subtitle">A transparent background OBS overlay source that shows up to date info of your scoresaber
+            profile, with rank change.</p>
+        <p class="subtitle">example:</p>
+        <img src="example.png" height="113" width="279"/>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <p class="title">how to use:</p>
+        <p class="subtitle">OBS source:</p>
+        <p>
+            in OBS add a <span class="has-text-weight-bold">Web browser</span> source and make it have a <span
+                class="has-text-weight-bold">width</span> of <code>410</code> and a <span class="has-text-weight-bold">height</span>
+            of <code>130</code>. Then enable <span class="has-text-weight-bold">Shutdown source when not visible</span>.
+        </p>
+        <p>use the table below to add request arguments to the url
+            <code>https://ziv.shalit.name/scoresaberStatus/status</code> or use the <a
+                    href="#UrlGenerator">generator</a>
+            then put it in OBS.</p>
+        <p class="subtitle">Arguments:</p>
+        <table class="table is-fullwidth">
+            <thead>
+            <tr>
+                <th>argument</th>
+                <th>type</th>
+                <th><abbr title="default value">default</abbr></th>
+                <th>description</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <th><span class="has-text-danger has-text-weight-bold">*</span> is required</th>
+            </tfoot>
+            <tbody>
+            <tr>
+                <td><code>uid</code><span class="has-text-danger has-text-weight-bold">*</span></td>
+                <td>value</td>
+                <td></td>
+                <td>your scoresaber uid, can be found at the end of your profile url on <a
+                        href="https://scoresaber.com/global">scoresaber.com</a>
+                </td>
+            </tr>
+            <tr>
+                <td><code>change</code></td>
+                <td>boolean</td>
+                <td><code>true</code></td>
+                <td>display the changed since the page was loaded</td>
+            </tr>
+            <tr>
+                <td><code>update</code></td>
+                <td>number</td>
+                <td><code>60</code></td>
+                <td>how often, in seconds, to update the page</td>
+            </tr>
+            <tr>
+                <td><code>square</code></td>
+                <td>boolean / present</td>
+                <td><code>false</code></td>
+                <td>use a square image instead of a round one</td>
+            </tr>
+            <tr>
+                <td><code>stroke</code></td>
+                <td>boolean / present</td>
+                <td><code>false</code></td>
+                <td>add a black stroke to the text</td>
+            </tr>
+            <tr>
+                <td><code>image</code></td>
+                <td>boolean</td>
+                <td><code>true</code></td>
+                <td>show the profile image</td>
+            </tr>
+            <tr>
+                <td><code>acc</code></td>
+                <td>boolean</td>
+                <td><code>true</code></td>
+                <td>show the average accuracy</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <p class="title" id="UrlGenerator">Generator:</p>
+        <div class="field">
+            <div class="control">
+                <input id="scoresaberId" class="input" type="text" placeholder="Scoresaber id / URL" required>
+            </div>
+            <p class="help">Scoresaber id or URL from your <a href="https://scoresaber.com/global" target="_blank" rel="noopener noreferrer">scoresaber.com</a> profile page</p>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" id="change" checked>
+                    display score change over time
+                </label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" id="square">
+                    use a square profile image
+                </label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" id="stroke">
+                    add a stroke to text
+                </label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" id="image" checked>
+                    add image
+                </label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" id="acc" checked>
+                    show the accuracy in element
+                </label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input id="update" class="input" type="number" value="60" min="10">
+            </div>
+            <p class="help">update time in seconds</p>
+        </div>
+        <label class="label">url:</label>
+        <div class="field has-addons">
+            <p class="control is-expanded">
+                <input class="input is-dark" type="text" id="resultUrl" value="" placeholder="result source url"
+                       readonly>
+            </p>
+            <p class="control">
+                <a class="button is-dark" onclick="copyText()">
+                    copy
+                </a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <p class="title">example urls:</p>
+        <p>dont show rank change and update every 3 minutes</p>
+        <code>https://ziv.shalit.name/scoresaberStatus/status?uid=76561198158987204&change=false&update=180</code>
+        <br/>
+        <p>use a square profile picture</p>
+        <code>https://ziv.shalit.name/scoresaberStatus/status?uid=76561197995162898&square</code>
+        <br/>
+        <p>add a stroke and dont show ranking change</p>
+        <code>https://ziv.shalit.name/scoresaberStatus/status?uid=76561198352327222&change=false&stroke</code>
+    </div>
+</section>
+
+<script src="generateUrl.js"></script>
+<script src="failscript.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+@charset "utf-8";
+@import "../bulmaswatch/darkly/_variables.scss";
+
+//div.container{
+//max-width: 1700px;
+//}
+
+$backcolor: #5b5e6a;
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+#info.tile {
+  width: 880px;
+  max-width: 881px;
+}
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+
+.stroke {
+  //-webkit-text-stroke-width: 1px;
+  //-webkit-text-stroke-color: black;
+  $shadowSize: 3;
+  $strokeColor: #000000;
+  $strokeFuzz: 5px;
+  $val: 0px 0px $strokeFuzz $strokeColor;
+  @for $j from 1 through $shadowSize {
+    $i: $j + 0px;
+    $ni: -$i;
+    $val: $val, $ni $ni $strokeFuzz $strokeColor,
+    $i $ni $strokeFuzz $strokeColor,
+    $ni $i $strokeFuzz $strokeColor,
+    $i $i $strokeFuzz $strokeColor,
+    $i 0px $strokeFuzz $strokeColor,
+    0px $i $strokeFuzz $strokeColor,
+    $ni 0px $strokeFuzz $strokeColor,
+    0px $ni $strokeFuzz $strokeColor;
+  }
+  text-shadow: $val;
+}
+
+$body-overflow-y: hidden;
+
+$backgroundColor: transparent; //rgba(0, 0, 0, 0);
+
+$background: $backgroundColor;
+$body-background-color: $backgroundColor;
+
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+$tablet: 400px;
+
+//@import "../bulma/sass/utilities/_all.sass";
+//@import "../bulma/sass/base/_all.sass";
+//@import "../bulma/sass/elements/icon.sass";
+//@import "../bulma/sass/elements/image.sass";
+//@import "../bulma/sass/elements/title.sass";
+//@import "../bulma/sass/elements/progress.sass";
+//@import "../bulma/sass/grid/tiles.sass";
+//@import "../bulma/sass/helpers/spacing.sass";
+//@import "../bulma/sass/helpers/flexbox.sass";
+//@import "../bulma/sass/helpers/color.sass";
+
+
+@import "../bulma/bulma.sass";
+//@import "../dark/bulma-prefers-dark.sass";
+
+@import "../bulmaswatch/darkly/_overrides.scss";

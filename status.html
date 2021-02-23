@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beat Saber Displayer</title>
+
+    <meta property="og:site_name" content="Ziv's site of things">
+    <meta property="og:description"
+          content="A page for OBS to display your current rank and PP and display any changes that happend since the it was opened"/>
+    <meta property="og:title" content="Beat Saber Displayer">
+    <meta name="theme-color" content="#5b5e6a">
+    <meta property="og:url" content="https://ziv.shalit.name/scoresaberStatus"/>
+    <!--    <meta property="og:image" content="https://ziv.shalit.name/scoresaberStatus/example.png"/>-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/ebebd37d4e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="sass/mystyles.css">
+    <!--    <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/darkly/bulmaswatch.min.css">-->
+</head>
+<body>
+<div class="hidden" id="main">
+    <div class="tile is-ancestor">
+        <div class="tile">
+            <div class="tile is-parent" id="info">
+                <article class="tile is-child is-2">
+                    <figure class="image is-128x128">
+                        <img id="image" class="is-rounded"
+                             src="">
+                    </figure>
+                </article>
+
+                <article class="tile is-child pal-6">
+                    <p class="title stroked" id="name"></p>
+                    <p class="subtitle stroked"><span id="pp"></span><span class="gap"></span>pp <span class="hidden"
+                                                                                                       id="ppAdjust"></span>
+                    </p>
+                    <p>
+                        <span class="icon">
+                             <i class="fas fa-globe-americas"></i>
+                        </span>
+                        <span class="stroked">#<span class="gap"></span><span id="globalrank"></span> <span
+                                class="hidden" id="rankAdjust"></span></span>
+
+                        <span class="icon">
+                         <img id="country" src=""/>
+                      </span>
+                        <span class="stroked">#<span class="gap"></span><span id="localrank"></span> <span
+                                class="hidden" id="localRankAdjust"></span></span>
+                    </p>
+                    <p class="stroked"><span id="acc"></span><span class="gap"></span>% <span class="hidden" id="accAdjust"></span></p>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="logic.js"></script>
+</body>
+</html>
